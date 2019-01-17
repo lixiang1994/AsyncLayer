@@ -18,6 +18,12 @@ class AsyncTextView: UIView {
         didSet { updatedTransaction() }
     }
     
+    /// 是否异步处理
+    var isAsynchronously: Bool {
+        set { (layer as? AsyncLayer)?.isAsynchronously = newValue }
+        get { return (layer as? AsyncLayer)?.isAsynchronously ?? false }
+    }
+    
     override class var layerClass: AnyClass {
         return AsyncLayer.self
     }
@@ -63,20 +69,15 @@ extension AsyncTextView: AsyncLayerDelegate {
         textPath.addRect(CGRect(origin: .zero, size: size))
         context.addPath(textPath)
         
-        context.setFillColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
-        context.drawPath(using: .fill)
-        
         // 根据framesetter和绘图区域创建CTFrame
         
-        // 文字样式属性
         let style = NSMutableParagraphStyle()
         style.alignment = .left
         
-        // NSAttributedStringKey.font 不能用就用这个 NSFontAttributeName
         let attrString = NSAttributedString(
             string: text,
             attributes: [
-                .font: UIFont.systemFont(ofSize: 16),
+                .font: font,
                 .kern: -0.5,
                 .foregroundColor: UIColor.brown,
                 .paragraphStyle: style

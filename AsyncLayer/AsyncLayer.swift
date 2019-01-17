@@ -28,9 +28,9 @@ public protocol AsyncLayerDelegate {
     ///   - size: 大小
     ///   - isCancelled: 是否已取消
     func display(draw layer: AsyncLayer,
-               at context: CGContext,
-               with size: CGSize,
-               isCancelled: (() -> Bool))
+                 at context: CGContext,
+                 with size: CGSize,
+                 isCancelled: (() -> Bool))
     
     /// 显示已经完成
     ///
@@ -62,7 +62,15 @@ public class AsyncLayer: CALayer {
     
     /// 是否异步处理
     public var isAsynchronously: Bool = true
+    
+    public override class func defaultValue(forKey key: String) -> Any? {
+        guard key == "isAsynchronously" else {
+            return super.defaultValue(forKey: key)
+        }
         
+        return true
+    }
+    
     public override func setNeedsDisplay() {
         cancel()
         super.setNeedsDisplay()

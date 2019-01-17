@@ -10,19 +10,29 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    private let view = AsyncTextView()
+    private let textView = AsyncTextView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.addSubview(view)
+        textView.font = .systemFont(ofSize: 11)
+        textView.isOpaque = false
+        textView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        textView.layer.shadowOffset = .zero
+        textView.layer.shadowRadius = 1
+        textView.layer.shadowOpacity = 0.1
+        contentView.addSubview(textView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        view.frame = contentView.bounds
+        textView.frame = contentView.bounds
+    }
+    
+    func set(async: Bool) {
+        textView.isAsynchronously = async
     }
     
     func set(text: String) {
-        view.text = text
+        textView.text = text
     }
 }

@@ -98,7 +98,7 @@ extension FPSLabel {
     }
 }
 
-class Weak: NSObject {
+fileprivate class Weak: NSObject {
     
     private weak var target: AnyObject?
     

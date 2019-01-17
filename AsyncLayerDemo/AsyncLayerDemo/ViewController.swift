@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var switchView: UISwitch!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -18,12 +19,16 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    @IBAction func switchChangedAction(_ sender: UISwitch) {
+        tableView.reloadData()
+    }
 }
 
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 40
     }
 }
 
@@ -39,9 +44,9 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        let text = "哈哈哈🇹🇱🇰🇵🇨🇬🇰🇵🇬🇱🇱🇮🇲🇶🇬🇷🇬🇷🇭🇺🎃😵😼🤧💀👋👋🙀🙀👍😼👄👅👥👨🏾‍⚕️👨🏿‍🍳👨🏾‍⚕️🧚🏾‍♂️🧞‍♀️🧞‍♀️🧜‍♀️👨‍👩‍👦‍👦💑💏👫🙍🏻‍♀️👨‍👦‍👦🧵👗🧦🧢👢🧤🎩🧢🎓🐭🧳👛👜🐼🐨🐻🦊🦅🐒🐤🐗🕸🕷🦑🐟🐬🐳🐅🦍🦍🦢🐐🐖"
+        let text = "(˶‾᷄ ⁻̫ ‾᷅˵) emoji: 🇹🇱🇰🇵🇨🇬🇰🇵🇬🇱🇱🇮🇲🇶🇬🇷🇬🇷🇭🇺🎃😵😼🤧💀👋🙀🙀👍😼👄👅👥👨🏾‍⚕️👨🏿‍🍳👨🏾‍⚕️🧚🏾‍♂️🧞‍♀️🧞‍♀️🧜‍♀️👨‍👩‍👦‍👦💑💏👫🙍🏻‍♀️👨‍👦‍👦🧵👗🧦🧢👢🧤🎩🧢🎓🐭🧳👛👜🐼🐨🐻🦊🦅🐒🐤🐗🕸🕷🦑🐟🐬🐳🐅🦍🍖🍟⚽️🏓🥅🥋🔨 (˶‾᷄ ⁻̫ ‾᷅˵) "
+        cell.set(async: switchView.isOn)
         cell.set(text: text)
         return cell
     }
 }
-
