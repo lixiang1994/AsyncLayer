@@ -63,12 +63,12 @@ extension Transaction {
         }
         
         func hash(into hasher: inout Hasher) {
-            hasher.combine(target.hashValue)
+            hasher.combine(target.hash)
             hasher.combine(selector)
         }
         
         static func == (lhs: Transaction.Item, rhs: Transaction.Item) -> Bool {
-            return lhs.target.hashValue == rhs.target.hashValue
+            return lhs.target === rhs.target
                 && lhs.selector == rhs.selector
         }
     }
